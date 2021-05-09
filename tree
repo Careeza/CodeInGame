@@ -1,0 +1,50 @@
+Player to play = 2
+. . . 
+. . . 
+. . . 
+
+Player to play = 1
+. . . 
+. . . 
+X . . 
+
+Player to play = 2
+. . . 
+. O . 
+X . . 
+
+Player to play = 1
+. X . 
+. O . 
+X . . 
+
+Player to play = 2
+. X . 
+. O O 
+X . . 
+
+Player to play = 1
+. X . 
+X O O 
+X . . 
+
+Player to play = 2
+O X . 
+X O O 
+X . . 
+
+Player to play = 1
+O X . 
+X O O 
+X . X 
+
+Player to play = 2
+O X . 
+X O O 
+X O X 
+
+Player to play = 1
+O X X 
+X O O 
+X O X 
+
