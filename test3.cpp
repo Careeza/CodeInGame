@@ -251,15 +251,12 @@ bool	State::final_state() {
 double	State::eval_state() {
 	//std::cerr << static_cast<int>(info.days) << ", " << info.player << std::endl;
 
-    double diff_score = info.score[0] - info.score[1];
-    double score = diff_score / 400 + 0.5;
+    double score = 1 / (1 + exp(info.score[0] - info.score[1]));
+
     return score;
 
 	// if (info.score[0] > info.score[1]) {
-	// 	if (!info.player)
-	// 		return 1;
-	// 	else
-	// 		return 0;
+    //     return 1;
 	// }
 	// if (info.score[0] == info.score[1])
 	// 	return 0.5;
@@ -569,11 +566,8 @@ double  Tree::simulate() {
 
     while (1) {
         if (simulation.final_state()) {
-            if (state.info.player)
-                return 1 - simulation.eval_state();
-            else
-                return simulation.eval_state();
-            }
+            return state.info.player - simulation.eval_state();
+        }
         Action a = simulation.random_action();
 		simulation.do_action(a);
     }
@@ -638,7 +632,7 @@ Action  best_moove(const State& s) {
         time = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
         i++;
-    } while (time < 90000);
+    } while (time < 10000000);
     std::cerr << i << std::endl;
 
     return root.best_action();
@@ -720,51 +714,31 @@ int     main(int argc, char **argv) {
 			possibleMoves_ia.emplace_back(possibleMove_ia);
             //std::cerr << "IA " << possibleMove_ia << std::endl;
         }
-
-
-        // std::cout << possibleMove_ia << std::endl;
 		State s(info, map);
 
-		std::cout << best_moove(s) << std::endl;
-		// simulate_game(s);
-        // // const std::chrono::time_point<std::chrono::system_clock> begin = std::chrono::system_clock::now();
-        // // long long unsigned time;
-        // std::vector<Action> actions;
-		// s.generate_all_actions(actions);
+        int i = 0;
+        while (!s.final_state()) {
+            Action a = best_moove(s);
+            s.do_action(a);
+            std::cout << "P1 " << a << std::endl;
+            if (s.final_state())
+                break;
+            a = best_moove(s);
+            std::cout << "P2 " << a << std::endl;
+            s.do_action(a);
+            i++;
+        }
 
-		// std::cerr << "HERE " << s.info.sun[0] << std::endl;
-		// std::cerr << actions.size() << std::endl;
-        // for (int i = 0; i < 10000; i++) {
-        //     actions.clear();
-        //     generate_all_actions(actions, map, info);
-        // }
-        // const std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        // time = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
-        // std::cerr << "TIME = " << time / 1000 << std::endl;
-		// std::vector<std::string>	possibleMoves;
-        // for (Action a : actions) {
-		// 	std::stringstream ss;
-		// 	ss << a;
-		// 	possibleMoves.emplace_back(ss.str());
-		// }
-		// if (possibleMoves.size() != possibleMoves_ia.size()) {
-		// 	std::cerr << "SIZE DIFF" << std::endl;
-            //print_map(map, info, possibleMoves_ia);
-            //std::cerr << "Trees size =" << numberOfTrees << ", IA MOOVES" << std::endl;
-            //for (std::string& s : possibleMoves)
-            //    std::cerr << s << std::endl;
-		// }
-	// 	} else {
-	// 		for (int i = 0; i < possibleMoves_ia.size(); i++) {
-	// 			if (std::find(possibleMoves_ia.begin(), possibleMoves_ia.end(), possibleMoves[i]) == possibleMoves_ia.end()) {
-	// 				std::cout << "Trop d'action " + possibleMoves[i] << std::endl;
-	// 			}
-	// 			if (std::find(possibleMoves.begin(), possibleMoves.end(), possibleMoves_ia[i]) == possibleMoves.end()) {
-	// 				std::cout << "Pas assez d'action " + possibleMoves_ia[i] << std::endl;
-	// 			}
-	// 		}
-	// 	}
-	// 	print_map(map, info, possibleMoves);
-	// 	return 0;
+        std::cout << "TURN " << i << std::endl;
+        std::cout << s.info.score[0] << std::endl;
+        std::cout << s.info.score[1] << std::endl;
+
+        std::cout << s.info.sun[0] << std::endl;
+        std::cout << s.info.sun[1] << std::endl;
+
+
+        std::cout << s.info.player << std::endl;
+
+        return 0;
     }
 }

@@ -337,48 +337,27 @@ int     Tree::nb_exploration() const {
     return static_cast<int>(n);
 }
 
-
-// class MCTS {
-//     public:
-//         Action  best_moove(const State& s);
-//     private:
-// };
-
 Action  best_moove(const State& s) {
     Tree root(s, NULL);
-    
     root.expand();
-
     const std::chrono::time_point<std::chrono::system_clock> begin = std::chrono::system_clock::now();
     long long unsigned time;
     int i = 0;
     do {
         Tree *leaf = root.select_tree();
-        
         if (leaf->explore()) {
             leaf->expand();
             leaf = leaf->select_tree();
         }
         double score = leaf->simulate();
-
         leaf->back_track(score);
-
-        //exit (0);
-
         const std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
         time = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
         i++;
     } while (time < 100000);
-
     std::cout << i << std::endl;
-
-    //std::cout << "ROOT " << std::endl << root;
-
-    //root.print();
-
     return root.best_action();
-        //return {0,0};
 }
 
 void    test() {
