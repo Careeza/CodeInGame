@@ -9,6 +9,53 @@
 #include <fstream>
 
 
+struct Diag {
+    std::array<int , 3> size;
+    std::array<bool , 36> diag;
+
+    Diag(const std::array<int , 3>& s, const std::array<bool , 36>& d) : size(s), diag(d) {};
+};
+const Diag d[37] = { 
+    { {6, 18, 36}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {6, 18, 29}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {6, 13, 22}, {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, } },
+    { {6, 15, 23}, {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, } },
+    { {3, 8, 15}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, } },
+    { {4, 10, 17}, {0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, } }
+};
+
+
 struct Neigbours {
     std::array<int , 3> size;
     std::array<unsigned char , 36> neigbours;
@@ -89,6 +136,7 @@ struct	Info {
 	std::array<short, 2>				score; // 0 - 4096
 	std::array<short, 2>				sun; // 0 - 4096
     std::array<std::array<int, 4>, 2> 	trees_size;
+    std::array<std::array<int, 3>, 2> 	trees_richness;
 }; // TAILLE TOTAL 8 Octet = taille long long int
 
 //std::function<bool(State&, Action, int, int)> t[4] = {seed_action, grow_action, complete_action, wait_action};
@@ -124,9 +172,10 @@ std::ostream&   operator<<(std::ostream& f, Action_type a) {
 
 struct Action {
     Action_type		type; // 1 1 1 => 7
-	unsigned char   from : 6; // index from
-	unsigned char   to : 6; // index to for seed
-    unsigned char   cost : 6; 
+	unsigned char   from; // index from
+	unsigned char   to; // index to for seed
+    unsigned char   cost;
+    double          score;
     // Il reste 4 bytes
 
 	Action() {}
@@ -164,13 +213,241 @@ struct State {
 	State() {}
 	State(const Info& i, const std::array<Cell, 37>& g) : info(i), grid(g) {}
 	void	generate_all_actions(std::vector<Action>& actions);
+    void	generate_all_actions_no_score(std::vector<Action>& actions);
+
 	Action	random_action();
 	void	simulate_action(State& new_s, Action a);
 	void	do_action(Action a);
 	bool	final_state();
 	double	eval_state();
 	void	print_map();
+
+    double  score_seed(Action& a, int player);
+    double  score_grow(Action& a);
+    double  score_complete(Action& a);
 };
+
+
+int     adjacent_trees(State& s, int index, int player) {
+    int neigbours = 0;
+    for (int i = 0; i < n[index].size[0]; i++) {
+        if (!s.grid[n[index].neigbours[i]].empty and s.grid[n[index].neigbours[i]].player == player) {
+            neigbours++;
+        }
+    }
+    return neigbours;
+}
+
+bool    isDiagonal(int from, int to) {
+    int start = n[from].size[0];
+    int end = n[from].size[1];
+
+    for (int i = start; i < end; i++) {
+        if (n[from].neigbours[i] == to) {
+            return d[from].diag[i];
+        }
+    }
+    return false;
+}
+
+bool    inSecondLayer(int from, int to) {
+    int start = n[from].size[0];
+    int end = n[from].size[1];
+
+    for (int i = start; i < end; i++) {
+        if (n[from].neigbours[i] == to)
+            return true;
+    }
+    return false;
+}
+
+bool    shadow_next_turn(State& state, int day, int id) {
+    int orientaion = (day + 1) % 6;
+    int size = state.grid[id].size;
+    for (int j = 0; j < 3; j++) {
+        int index_cell = s[orientaion].shadow[id][j];
+        if (index_cell == -1 or state.grid[index_cell].empty) {
+            continue;
+        }
+        if (state.grid[index_cell].size < size or j >= state.grid[index_cell].size) {
+            continue;
+        }
+        return (true);
+    }
+    return false;
+}
+double  State::score_seed(Action& a, int player) {
+    double score;
+
+    Cell& c = grid[a.to];
+    Cell& from = grid[a.from];
+    if (c.richness == 2 || c.richness == 1) {
+        score = c.richness == 2 ? 0.8 : 0.8;
+        if (info.trees_richness[player][2] >= 1 && info.trees_richness[player][1] < 3 && (c.richness == 2 || info.trees_richness[player][0] < 3) && from.size > 1) {
+            score += 0.1 * (6 - adjacent_trees(*this, a.to, player)); // adjacent_trees returns the number of trees (you own) surrounding a cell
+        }
+    } else if (c.richness == 3) {
+        score = info.trees_richness[player][2] < 4 ? 2 : 0;
+        score -= (info.days < 8 ? 0.6 : 0.6 ) * adjacent_trees(*this, a.to, player);
+        score += from.size == 3 ? 0.1 : 0; // sow_size is the size of the tree in the cell sow
+    }
+    if (inSecondLayer(a.from, a.to)) // is the cell id in the second layer of neighbors of cell sow ?
+        score += 0.1;
+    if (isDiagonal(a.from, a.to)) // is the cell id diagonal to the cell sow ?
+        score += 0.1;
+    if (info.days > 18)
+        score -= 2;
+
+    a.score = score;
+    return score;
+}
+
+double  State::score_grow(Action& a) {
+    double score;
+
+    Cell& c = grid[a.from];
+    if (c.richness == 1)
+        score = 4;
+    else if (c.richness == 2)
+        score = 2.5;
+    else if (c.richness == 3)
+        score = 3;
+    if (shadow_next_turn(*this, info.days, a.from))
+        score -= 1;
+    score += 0.1 * (c.size + 1);
+
+    a.score = score;
+    return score;
+}
+
+double  State::score_complete(Action& a) {
+    double score;
+    
+    Cell& c = grid[a.from];
+    if (c.richness == 1)
+        score = 0;
+    else
+        score = c.richness;
+    if (info.days > 21)
+        score += 21;
+    if (!shadow_next_turn(*this, info.days, a.from))
+        score -= 2;
+    a.score = score;
+    return score;
+}
+
+// void	State::generate_all_actions(std::vector<Action>& all) {
+//     unsigned char prix;
+// 	int player = info.player;
+
+//     std::vector<Action> actions;
+// 	if (final_state())
+// 		return ;
+//     Action a(Action_type::wait, 0, 0, 0);
+//     a.score = 1.4;
+//     actions.push_back(a);
+// 	if (info.wait[player])
+// 		return ;
+//     for (unsigned char i = 0; i < 37; i++) {
+//         if (!grid[i].empty and grid[i].player == player and !grid[i].sleep) {
+//             switch (grid[i].size)
+//             {
+//                 case 0: {
+//                     prix = 1 + info.trees_size[player][1];
+//                     if (prix <= info.sun[player]) {
+//                         Action a(Action_type::grow, i, 0, prix);
+//                         if (score_grow(a) >= 1.5) {
+//                             actions.push_back(a);
+//                         }
+//                     }
+//                     break;
+//                 }
+//                 case 1: {
+//                     prix = 3 + info.trees_size[player][2];
+//                     if (prix <= info.sun[player]) {
+//                         Action a(Action_type::grow, i, 0, prix);
+//                         if (score_grow(a) >= 1.5) {
+//                             actions.push_back(a);
+//                         }
+//                     }
+//                     prix = info.trees_size[player][0];
+//                     if (prix > info.sun[player])
+//                         break;
+//                     for (int j = 0; j < n[i].size[0]; j++) {
+//                         int to = n[i].neigbours[j];
+//                         if (grid[to].empty and grid[to].richness != 0) {
+//                             Action a(Action_type::seed, i, to, prix);
+//                             if (score_seed(a, player) >= 1.5) {
+//                                 actions.push_back(a);
+//                             }
+//                         }
+//                     }
+//                     break;
+//                 }
+//                 case 2: {
+//                     prix = 7 + info.trees_size[player][3];
+//                     if (prix <= info.sun[player]) {
+//                         Action a(Action_type::grow, i, 0, prix);
+//                         if (score_grow(a) >= 1.5) {
+//                             actions.push_back(a);
+//                         }
+//                     }                
+//                     prix = info.trees_size[player][0];
+//                     if (prix > info.sun[player])
+//                         break;
+//                     for (int j = 0; j < n[i].size[1]; j++) {
+//                         int to = n[i].neigbours[j];
+//                         if (grid[to].empty and grid[to].richness != 0) {
+//                             Action a(Action_type::seed, i, to, prix);
+//                             if (score_seed(a, player) >= 1.5) {
+//                                 actions.push_back(a);
+//                             }
+//                         }
+//                     }
+//                     break;
+//                 }
+//                 case 3: {
+//                     if (info.sun[player] >= 4) {
+//                         Action a(Action_type::complete, i, 0, 4);
+//                         if (score_complete(a) >= 1.5) {
+//                             actions.push_back(a);
+//                         }
+//                     }
+//                     prix = info.trees_size[player][0];
+//                     if (prix > info.sun[player])
+//                         break;
+//                     for (int j = 0; j < n[i].size[2]; j++) {
+//                         int to = n[i].neigbours[j];
+//                         if (grid[to].empty and grid[to].richness != 0) {
+//                             Action a(Action_type::seed, i, to, prix);
+//                             if (score_seed(a, player) >= 1.5) {
+//                                 actions.push_back(a);
+//                             }
+//                         }
+//                     }
+//                     break;
+//                 }
+//                 default: {
+//                     std::cerr << "Error in parser" << std::endl;
+//                     break;
+//                 }
+//             }
+//         }
+//     }
+//     double score_max = -10;
+//     int index_max = 0;
+
+//     for (int i = 0; i < actions.size(); i++) {
+//         //double score = actions[i].score;
+//         double score = actions[i].score;
+//         if (score > score_max) {
+//             score_max = score;
+//             index_max = i;
+//         }
+//     }
+
+//     all.push_back(actions[index_max]);
+// }
 
 void	State::generate_all_actions(std::vector<Action>& actions) {
     unsigned char prix;
@@ -178,6 +455,106 @@ void	State::generate_all_actions(std::vector<Action>& actions) {
 
 	if (final_state())
 		return ;
+    Action a(Action_type::wait, 0, 0, 0);
+    a.score = 1.4;
+    actions.push_back(a);
+	if (info.wait[player])
+		return ;
+    for (unsigned char i = 0; i < 37; i++) {
+        if (!grid[i].empty and grid[i].player == player and !grid[i].sleep) {
+            switch (grid[i].size)
+            {
+                case 0: {
+                    prix = 1 + info.trees_size[player][1];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        if (score_grow(a) >= 1.5) {
+                            actions.push_back(a);
+                        }
+                    }
+                    break;
+                }
+                case 1: {
+                    prix = 3 + info.trees_size[player][2];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        if (score_grow(a) >= 1.5) {
+                            actions.push_back(a);
+                        }
+                    }
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[0]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            if (score_seed(a, player) >= 1.5) {
+                                actions.push_back(a);
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    prix = 7 + info.trees_size[player][3];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        if (score_grow(a) >= 1.5) {
+                            actions.push_back(a);
+                        }
+                    }                
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[1]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            if (score_seed(a, player) >= 1.5) {
+                                actions.push_back(a);
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 3: {
+                    if (info.sun[player] >= 4) {
+                        Action a(Action_type::complete, i, 0, 4);
+                        if (score_complete(a) >= 1.5) {
+                            actions.push_back(a);
+                        }
+                    }
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[2]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            if (score_seed(a, player) >= 1.5) {
+                                actions.push_back(a);
+                            }
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    std::cerr << "Error in parser" << std::endl;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void	State::generate_all_actions_no_score(std::vector<Action>& actions) {
+    unsigned char prix;
+	int player = info.player;
+
+	if (final_state())
+		return ;
+
     actions.emplace_back(Action_type::wait, 0, 0, 0);
 	if (info.wait[player])
 		return ;
@@ -185,58 +562,71 @@ void	State::generate_all_actions(std::vector<Action>& actions) {
         if (!grid[i].empty and grid[i].player == player and !grid[i].sleep) {
             switch (grid[i].size)
             {
-            case 0:
-                prix = 1 + info.trees_size[player][1];
-                if (prix <= info.sun[player]) {
-                    actions.emplace_back(Action_type::grow, i, 0, prix);
-                }
-                break;
-            case 1:
-                prix = 3 + info.trees_size[player][2];
-                if (prix <= info.sun[player]) {
-                    actions.emplace_back(Action_type::grow, i, 0, prix);
-                }
-                prix = info.trees_size[player][0];
-                if (prix > info.sun[player])
-                    break;
-                for (int j = 0; j < n[i].size[0]; j++) {
-                    int to = n[i].neigbours[j];
-                    if (grid[to].empty and grid[to].richness != 0) {
-                        actions.emplace_back(Action_type::seed, i, to, prix);
+                case 0: {
+                    prix = 1 + info.trees_size[player][1];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        actions.push_back(a);
                     }
-                }
-                break;
-            case 2:
-                prix = 7 + info.trees_size[player][3];
-                if (prix <= info.sun[player]) {
-                    actions.emplace_back(Action_type::grow, i, 0, prix);
-                }                
-                prix = info.trees_size[player][0];
-                if (prix > info.sun[player])
                     break;
-                for (int j = 0; j < n[i].size[1]; j++) {
-                    int to = n[i].neigbours[j];
-                    if (grid[to].empty and grid[to].richness != 0) {
-                        actions.emplace_back(Action_type::seed, i, to, prix);
-                    }
                 }
-                break;
-            case 3:
-                if (info.sun[player] >= 4)
-                    actions.emplace_back(Action_type::complete, i, 0, 4);
-                prix = info.trees_size[player][0];
-                if (prix > info.sun[player])
+                case 1: {
+                    prix = 3 + info.trees_size[player][2];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        actions.push_back(a);
+                    }
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[0]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            actions.push_back(a);
+                        }
+                    }
                     break;
-                for (int j = 0; j < n[i].size[2]; j++) {
-                    int to = n[i].neigbours[j];
-                    if (grid[to].empty and grid[to].richness != 0) {
-                        actions.emplace_back(Action_type::seed, i, to, prix);
-                    }
                 }
-                break;
-            default:
-                std::cerr << "Error in parser" << std::endl;
-                break;
+                case 2: {
+                    prix = 7 + info.trees_size[player][3];
+                    if (prix <= info.sun[player]) {
+                        Action a(Action_type::grow, i, 0, prix);
+                        actions.push_back(a);
+                    }                
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[1]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            actions.push_back(a);
+                        }
+                    }
+                    break;
+                }
+                case 3: {
+                    if (info.sun[player] >= 4) {
+                        Action a(Action_type::complete, i, 0, 4);
+                        actions.push_back(a);
+                    }
+                    prix = info.trees_size[player][0];
+                    if (prix > info.sun[player])
+                        break;
+                    for (int j = 0; j < n[i].size[2]; j++) {
+                        int to = n[i].neigbours[j];
+                        if (grid[to].empty and grid[to].richness != 0) {
+                            Action a(Action_type::seed, i, to, prix);
+                            actions.push_back(a);
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    std::cerr << "Error in parser" << std::endl;
+                    break;
+                }
             }
         }
     }
@@ -252,14 +642,22 @@ double	State::eval_state() {
 	//std::cerr << static_cast<int>(info.days) << ", " << info.player << std::endl;
 
     double diff_score = info.score[0] - info.score[1];
-    double score = diff_score / 400 + 0.5;
+    double score = diff_score / 400.0 + 0.5;
+
+    // std::cerr << "diff_score = " << diff_score << " SCORE = " << score << std::endl;
+
     return score;
 
+    //std::cerr << "Diff score " << diff_score << " : " << info.score[0] << " vs " << info.score[1] << std::endl;
+
+    //double score = 1 / (1 + exp(-diff_score));
+
+
+    //std::cerr << score << std::endl;
+
+
 	// if (info.score[0] > info.score[1]) {
-	// 	if (!info.player)
-	// 		return 1;
-	// 	else
-	// 		return 0;
+    //     return 1;
 	// }
 	// if (info.score[0] == info.score[1])
 	// 	return 0.5;
@@ -271,7 +669,7 @@ double	State::eval_state() {
 Action	State::random_action() {
 	std::vector<Action>	actions;
 
-	generate_all_actions(actions);
+	generate_all_actions_no_score(actions);
 	return actions[random_index(0, actions.size() - 1)];
 }
 
@@ -320,12 +718,22 @@ bool	seed_action(State &s, Action a, int player, int info) {
 	s.grid[a.to].size = 0;
 	s.grid[a.to].sleep = true;
 	s.info.trees_size[player][0]++;
+    s.info.trees_richness[player][s.grid[a.to].richness - 1]++;
+
 	return false;
 }
 bool	complete_action(State &s, Action a, int player, int info) {
 	s.grid[a.from].empty = true;
 	s.info.trees_size[player][3]--;
-	s.info.score[player] += (info + s.grid[a.from].richness);
+
+    //std::cerr << "COMPLETE !!!!! " << player << ", " << s.grid[a.from].richness - 1 << std::endl;
+    //std::cerr <<  s.info.trees_richness[player][s.grid[a.from].richness - 1] << std::endl;
+
+    s.info.trees_richness[player][s.grid[a.from].richness - 1]--;
+
+    //std::cerr <<  s.info.trees_richness[player][s.grid[a.from].richness - 1] << std::endl;
+
+	s.info.score[player] += (info + (s.grid[a.from].richness - 1) * 2);
 	s.info.nutriments--;
 	return false;
 }
@@ -355,6 +763,8 @@ void	State::simulate_action(State& new_s, Action a) {
 		if (t[static_cast<int>(a.type)](new_s, a, 1, nutriments)) {
 			new_s.info.sun[0] += this->a.cost;
         	new_s.info.sun[1] += a.cost;
+            new_s.info.trees_size[0][0]--;
+            new_s.info.trees_richness[0][new_s.grid[a.to].richness - 1]--;
 		}
 
 		if (new_s.info.wait[0] and new_s.info.wait[1]) {
@@ -364,6 +774,7 @@ void	State::simulate_action(State& new_s, Action a) {
 
 	new_s.info.player = !this->info.player;
 }
+
 void	State::do_action(Action a) {
 	int nutriments = this->info.nutriments;
 
@@ -377,6 +788,8 @@ void	State::do_action(Action a) {
 		if (t[static_cast<int>(a.type)](*this, a, 1, nutriments)) {
 			this->info.sun[0] += this->a.cost;
         	this->info.sun[1] += a.cost;
+            this->info.trees_size[0][0]--;
+            this->info.trees_richness[0][this->grid[a.to].richness - 1]--;
 		}
 
 		if (this->info.wait[0] and this->info.wait[1]) {
@@ -385,6 +798,7 @@ void	State::do_action(Action a) {
 	}
 	this->info.player = !this->info.player;
 }
+
 void    print_map(std::array<Cell, 37> map, Info info, std::vector<std::string> possible_moves) {
     std::cerr << "-----MAP-----" << std::endl;
 	std::cerr << 37 << std::endl;
@@ -422,7 +836,6 @@ void    print_map(std::array<Cell, 37> map, Info info, std::vector<std::string> 
 		std::cerr << s << std::endl;
 	}
 }
-
 
 Action	extract_action(std::string str, int player) {
 	Action a;
@@ -496,7 +909,7 @@ void	simulate_game(State &s) {
 		//std::cin.ignore();
 	}
 	
-	print_map(s.grid, s.info, {{""}});
+	//print_map(s.grid, s.info, {{""}});
 
 	exit (0);
 }
@@ -521,6 +934,28 @@ class Tree {
         double  score() const;
 		int		child_size() {return child.size();};
 		int		get_player() {return state.info.player;};
+
+        void    print(std::string space = "") {
+
+            std::cout << space << "STATE" << std::endl;
+            std::cout << space << "n = " << n << std::endl;
+            std::cout << space << "w = " << w << std::endl;
+
+            space = space + "    ";
+
+            for (int i = 0; i < child.size(); i++) {
+                std::cout << space << "CHILD no " << i + 1 << std::endl;
+                std::cout << space << "Actions = " << actions[i] << std::endl;
+                double UCT_SCORE = (1 - child[i].score()) + sqrt(2) * sqrt(log2(n) / child[i].n);
+                std::cout << space << "UCT SCORE = " << UCT_SCORE << std::endl;
+                std::cout << space << "N = " << child[i].n << std::endl;
+                std::cout << space << "W = " << child[i].w << std::endl;
+                std::cout << space << "Score = " << 1 - child[i].score() << std::endl;
+                //child[i].print(space);
+                std::cout << std::endl;
+            }
+            //std::cout << std::endl
+        }
 
         Action  best_action() const;
 };
@@ -573,7 +1008,7 @@ double  Tree::simulate() {
                 return 1 - simulation.eval_state();
             else
                 return simulation.eval_state();
-            }
+        }
         Action a = simulation.random_action();
 		simulation.do_action(a);
     }
@@ -599,6 +1034,9 @@ Action  Tree::best_action() const {
 
 void    Tree::back_track(double score) {
     n += 1;
+
+
+
     w += score;
     if (father != NULL)
         father->back_track(1 - score);
@@ -632,6 +1070,8 @@ Action  best_moove(const State& s) {
             leaf = leaf->select_tree();
         }
         double score = leaf->simulate();
+
+
 		// std::cerr << "SCORE = " << score << std::endl;
         leaf->back_track(score);
         const std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
@@ -641,9 +1081,57 @@ Action  best_moove(const State& s) {
     } while (time < 90000);
     std::cerr << i << std::endl;
 
+    //root.print();
+
     return root.best_action();
 }
 
+
+double  get_score(State&s, Action a) {
+    int player = s.info.player;
+    double score = 0;
+
+    switch (a.type)
+    {
+        case Action_type::seed : {
+            score= s.score_seed(a, player);
+            break;
+        }
+        case Action_type::grow : {
+            score = s.score_grow(a);
+            break;
+        }
+        case Action_type::complete : {
+            score = s.score_complete(a);
+            break;
+        }
+        default: {
+            score = 1.5;
+            break;
+        }
+    }
+    return score;
+}
+
+Action  best_moove2(State& s) {
+    std::vector<Action> actions;
+    s.generate_all_actions(actions);
+
+    double score_max = -10;
+    int index_max = 0;
+
+    for (int i = 0; i < actions.size(); i++) {
+        //double score = actions[i].score;
+        double score = actions[i].score;
+        if (score > score_max) {
+            score_max = score;
+            index_max = i;
+        }
+    }
+
+    return actions[index_max];
+    //std::cout << actions[index_max] << std::endl;
+}
 
 int     main(int argc, char **argv) {
     std::array<Cell, 37>    map;
@@ -665,7 +1153,7 @@ int     main(int argc, char **argv) {
         map[index].empty = true;
     }
     while (1) {
-		info.wait[0] = false;
+        info.wait[0] = false;
 
         int day; // the game lasts 24 days: 0-23
         std::cin >> day; std::cin.ignore();
@@ -694,10 +1182,12 @@ int     main(int argc, char **argv) {
 
         info.trees_size[0].fill(0);
         info.trees_size[1].fill(0);
-		//std::cout << "WTF " << numberOfTrees << std::endl;
-		for (int i = 0; i < numberOfCells; i++) {
-			map[i].empty = true;
-		}
+        info.trees_richness[0].fill(0);
+        info.trees_richness[1].fill(0);
+        //std::cout << "WTF " << numberOfTrees << std::endl;
+        for (int i = 0; i < numberOfCells; i++) {
+            map[i].empty = true;
+        }
         for (int i = 0; i < numberOfTrees; i++) {
             int cellIndex, size;
             int isMine, isDormant;
@@ -708,6 +1198,8 @@ int     main(int argc, char **argv) {
             map[cellIndex].empty = false;
             info.trees_size[0][size] += isMine;
             info.trees_size[1][size] += !isMine;
+
+            info.trees_richness[!isMine][map[cellIndex].richness - 1]++;
         }
 
         int numberOfPossibleMoves;
@@ -717,54 +1209,10 @@ int     main(int argc, char **argv) {
 
         for (int i = 0; i < numberOfPossibleMoves; i++) {
             getline(std::cin, possibleMove_ia);
-			possibleMoves_ia.emplace_back(possibleMove_ia);
+            possibleMoves_ia.emplace_back(possibleMove_ia);
             //std::cerr << "IA " << possibleMove_ia << std::endl;
         }
-
-
-        // std::cout << possibleMove_ia << std::endl;
-		State s(info, map);
-
-		std::cout << best_moove(s) << std::endl;
-		// simulate_game(s);
-        // // const std::chrono::time_point<std::chrono::system_clock> begin = std::chrono::system_clock::now();
-        // // long long unsigned time;
-        // std::vector<Action> actions;
-		// s.generate_all_actions(actions);
-
-		// std::cerr << "HERE " << s.info.sun[0] << std::endl;
-		// std::cerr << actions.size() << std::endl;
-        // for (int i = 0; i < 10000; i++) {
-        //     actions.clear();
-        //     generate_all_actions(actions, map, info);
-        // }
-        // const std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        // time = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
-        // std::cerr << "TIME = " << time / 1000 << std::endl;
-		// std::vector<std::string>	possibleMoves;
-        // for (Action a : actions) {
-		// 	std::stringstream ss;
-		// 	ss << a;
-		// 	possibleMoves.emplace_back(ss.str());
-		// }
-		// if (possibleMoves.size() != possibleMoves_ia.size()) {
-		// 	std::cerr << "SIZE DIFF" << std::endl;
-            //print_map(map, info, possibleMoves_ia);
-            //std::cerr << "Trees size =" << numberOfTrees << ", IA MOOVES" << std::endl;
-            //for (std::string& s : possibleMoves)
-            //    std::cerr << s << std::endl;
-		// }
-	// 	} else {
-	// 		for (int i = 0; i < possibleMoves_ia.size(); i++) {
-	// 			if (std::find(possibleMoves_ia.begin(), possibleMoves_ia.end(), possibleMoves[i]) == possibleMoves_ia.end()) {
-	// 				std::cout << "Trop d'action " + possibleMoves[i] << std::endl;
-	// 			}
-	// 			if (std::find(possibleMoves.begin(), possibleMoves.end(), possibleMoves_ia[i]) == possibleMoves.end()) {
-	// 				std::cout << "Pas assez d'action " + possibleMoves_ia[i] << std::endl;
-	// 			}
-	// 		}
-	// 	}
-	// 	print_map(map, info, possibleMoves);
-	// 	return 0;
+        State s(info, map);
+        std::cout << best_moove(s) << std::endl;
     }
 }
