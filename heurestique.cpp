@@ -23,7 +23,7 @@ static double  score_action(State& s, Action a) {
             Cell& c = s.grid[a.to];
             Cell& from = s.grid[a.from];
             if (c.richness == 2 || c.richness == 1) {
-                score = c.richness == 2 ? 0.8 : 0.8;
+                //score = c.richness == 2 ? 0.8 : 0.8;
                 if (s.info.trees_richness[player][2] >= 1 && s.info.trees_richness[player][1] < 3 && (c.richness == 2 || s.info.trees_richness[player][0] < 3) && from.size > 1) {
                     score += 0.1 * (6 - adjacent_trees(s, a.to, player)); // adjacent_trees returns the number of trees (you own) surrounding a cell
                 }
@@ -32,10 +32,8 @@ static double  score_action(State& s, Action a) {
                 score -= (s.info.days < 8 ? 0.6 : 0.6 ) * adjacent_trees(s, a.to, player);
                 score += from.size == 3 ? 0.1 : 0; // sow_size is the size of the tree in the cell sow
             }
-            if (inSecondLayer(a.from, a.to)) // is the cell id in the second layer of neighbors of cell sow ?
-                score += 0.1;
             if (isDiagonal(a.from, a.to)) // is the cell id diagonal to the cell sow ?
-                score += 0.1;
+                score += 0.2;
             if (s.info.days > 18)
                 score -= 2;
             //std::cerr << "SON SCORE EST DE " << score << std::endl;
