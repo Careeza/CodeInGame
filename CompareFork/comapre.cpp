@@ -26,6 +26,11 @@
 #include <signal.h>
 #include <stdlib.h>
 
+
+State   GenerateMap() {
+
+}
+
 int		get_cost(State &s, Action a) {
     int player = s.info.player;
     
@@ -56,11 +61,6 @@ Action	extract_action(std::string str) {
 	Action a;
 	char skip[20];
 	int from, to;
-
-	static int player = 0;
-
-	std::cout << "P" << player << " action = " << str;
-	player = (player + 1) % 2;
 
 	switch (str[0]) {
 		case 'S' :
@@ -320,7 +320,7 @@ static void     print_update(int fd, State& s) {
 	}
 }
 
-void    exec(const char* algo1, const char *algo2) {
+double  exec(State& s, const char* algo1, const char *algo2) {
     pid_t pid = 0;
     pid_t pid2 = 0;
     int inpipefd_algo1[2];
@@ -337,8 +337,6 @@ void    exec(const char* algo1, const char *algo2) {
     pipe(outpipefd_algo1);
 	pipe(inpipefd_algo2);
     pipe(outpipefd_algo2);
-
-	State s = parse_state(0);
 
     pid = fork();
     if (pid == 0)
@@ -394,17 +392,30 @@ void    exec(const char* algo1, const char *algo2) {
 		s.do_action(algo2_action);
 	}
 
-	std::cout << "SOCRE P1 " << s.info.score[0] << std::endl;
-	std::cout << "SOCRE P2 " << s.info.score[1] << std::endl;
-
 	kill(pid, SIGKILL);
 	kill(pid2, SIGKILL);
     waitpid(pid, &status, 0);
     waitpid(pid2, &status, 0);
+
+    if (s.info.score[0] > s.info.score[1])
+        return 1;
+    if (s.info.score[0] == s.info.score[1])
+        return 0.5;
+    return 0;
 }
 
 int     main(int argc, char **argv) {
-    exec("./algo1", "./algo1");
+    double victoire = 0;
+    for (int i = 0; i < 20; i++) {
+        State s = parse_state(i);
+        victoire += exec(s, "./algo1", "./mgarcia-");
+    }
+    for (int i = 0; i < 20; i++) {
+        State s = parse_state(i);
+        victoire += exec(s, "./mgarcia-", "./algo1");
+    }
+    std::cout << "P1 V : " << victoire << " P2 V : " << 40 - victoire << std::endl;
+
 }
 
 
